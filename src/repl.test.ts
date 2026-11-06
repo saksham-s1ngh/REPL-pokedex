@@ -3,6 +3,14 @@ import { describe, expect, test } from "vitest";
 
 describe.each([
   {
+    input: "    ",
+    expected: [],
+  },
+  {
+    input: "  hello   world  ",
+    expected: ["hello", "world"],
+  },
+  {
     input: "  hello world  ",
     expected: ["hello", "world"],
   },
