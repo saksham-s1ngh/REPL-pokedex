@@ -1,15 +1,7 @@
-import { getCommands } from "./commands.js";
-import type { CLICommand } from "./command.js";
-import { createInterface } from "node:readline";
-import { stdin, stdout } from "node:process";
+import type { State } from "./state.js";
 
-export function startREPL() {
-  const rl = createInterface({
-    input: stdin,
-    output: stdout,
-    prompt: "Pokedex > ",
-  });
-
+export function startREPL(state: State) {
+  const rl = state.rl;
   rl.prompt();
 
   rl.on("line", async (input) => {
@@ -21,13 +13,10 @@ export function startREPL() {
 
     const commandName = words[0];
 
-    // 1. call getCommands() to get the registry object.
-    const available_commands = getCommands();
+    // no need to fetch available commands now, we can just use state directly
 
-    // 2. Look up the typed command name as a key in that object.
-    const cmd = available_commands[commandName];
+    const cmd = state.commands[commandName];
     if (!cmd) {
-      // 4. If not found, print Unknown command.
       console.log(
         `Unknown command: "${commandName}". Type "help" for a list of commands.`,
       );
@@ -35,9 +24,8 @@ export function startREPL() {
       return;
     }
 
-    // 3. If found, call its callback.
     try {
-      cmd.callback(available_commands);
+      cmd.callback(state);
     } catch (e) {
       console.log(e);
     }

@@ -1,8 +1,12 @@
 // repl.js actually refers to repl.ts
 import { startREPL } from "./repl.js";
+import { initState } from "./state.js";
+
+import type { State } from "./state.js";
 
 function main() {
-  startREPL();
+  const state: State = initState();
+  startREPL(state);
 }
 
 main();
