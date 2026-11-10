@@ -9,13 +9,13 @@ export type CLICommand = {
 };
 
 export type State = {
-  rl: Interface;
+  readline: Interface;
   commands: Record<string, CLICommand>;
 };
 
 export function initState(): State {
   return {
-    rl: createInterface({
+    readline: createInterface({
       input: stdin,
       output: stdout,
       prompt: "Pokedex > ",

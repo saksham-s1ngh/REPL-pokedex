@@ -1,13 +1,12 @@
 import type { State } from "./state.js";
 
 export function startREPL(state: State) {
-  const rl = state.rl;
-  rl.prompt();
+  state.readline.prompt();
 
-  rl.on("line", async (input) => {
+  state.readline.on("line", async (input) => {
     const words = cleanInput(input);
     if (words.length == 0) {
-      rl.prompt();
+      state.readline.prompt();
       return;
     }
 
@@ -20,7 +19,7 @@ export function startREPL(state: State) {
       console.log(
         `Unknown command: "${commandName}". Type "help" for a list of commands.`,
       );
-      rl.prompt();
+      state.readline.prompt();
       return;
     }
 
@@ -30,7 +29,7 @@ export function startREPL(state: State) {
       console.log(e);
     }
 
-    rl.prompt();
+    state.readline.prompt();
   });
 }
 
