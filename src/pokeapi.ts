@@ -1,0 +1,35 @@
+export class PokeAPI {
+  private static readonly baseURL = "https://pokeapi.co/api/v2";
+
+  constructor() {}
+
+  async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
+    const url = `${PokeAPI.baseURL}/location-area`;
+    if (!pageURL) {
+      // triggered if the pageURL is undefined
+      pageURL = url; // then the pageURL is set to the baseURL + location-area
+    }
+
+    const response = await fetch(pageURL);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result;
+  }
+
+  /*
+  async fetchLocation(locationName: string): Promise<Location> {
+    // implement this
+  }
+  */
+}
+
+export type ShallowLocations = {
+  next: string | null;
+  previous: string | null;
+  results: { name: string; url: string }[];
+};
+
+export type Location = {};
