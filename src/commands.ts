@@ -1,7 +1,6 @@
 import { commandExit } from "./command_exit.js";
 import { commandHelp } from "./command_help.js";
-import { commandMap } from "./command_map.js";
-import { commandMapB } from "./command_mapb.js";
+import { commandMapForward, commandMapBackward } from "./command_map.js";
 
 import type { CLICommand } from "./state.js";
 
@@ -19,15 +18,13 @@ export function getCommands(): Record<string, CLICommand> {
     },
     map: {
       name: "map",
-      description:
-        "Displays the names of 20 location areas in the Pokemon world, prints the next 20 on re-running the command.",
-      callback: commandMap,
+      description: "Get the next page of locations.",
+      callback: commandMapForward,
     },
     mapb: {
-      name: "map",
-      description:
-        "Displays the names of previous 20 location areas in the Pokemon world",
-      callback: commandMapB,
+      name: "mapb",
+      description: "Get the previous page of locations",
+      callback: commandMapBackward,
     },
     // can add more commands here
   };
